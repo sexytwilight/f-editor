@@ -13,11 +13,11 @@ npm install
 ```bash
 # Run Developer Server:
 webpack-dev-server
+# Navigate to http://localhost:8080/webpack-dev-server/
 ```
-Navigate to http://localhost:8080/webpack-dev-server/
 
 
 ```bash
 # Build Production:
-webpack
+webpack --watch
 ```

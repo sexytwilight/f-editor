@@ -4,6 +4,7 @@ webpack = require 'webpack'
 module.exports =
   entry: './src/f-editor.coffee'
   devtool: 'source-map'
+  devServer: open: yes
   plugins: [new webpack.optimize.UglifyJsPlugin minimize: yes]
   output:
     path: path.join __dirname, 'dist/'
