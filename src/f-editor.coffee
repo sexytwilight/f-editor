@@ -1,33 +1,8 @@
+require './test.cjsx'
+require './f-editor.styl'
+dom = require './dom.coffee'
 parse = require './parse.coffee'
-#getSelectionCoords = require './getSelectionCoords.coffee'
-
-debounce = (delay, fn) ->
-  waiting = no
-  last = 0
-  (args...) ->
-    unless waiting
-      waiting = yes
-      next = delay - (Date.now() - last)
-      if next < 0 then next = 0
-      timer = setTimeout =>
-        waiting = no
-        last = Date.now()
-        fn.apply @, args
-    timer
-
-began = Date.now()
-d = debounce 1000, -> console.log Date.now() - began
-setInterval ->
-  d()
-  d()
-  d()
-  d()
-  d()
-  d()
-  d()
-  d()
-  d()
-, 30
+{ debounce } = require './timing.coffee'
 
 FEditor = (editor) ->
   if typeof editor is 'string'
@@ -36,10 +11,8 @@ FEditor = (editor) ->
   console.log 'Window loaded!', editor
   editor.contentEditable = yes
   editor.style.whiteSpace = 'pre-wrap'
-  for type in ['copy', 'paste', 'cut', 'drop', 'focus', 'blur', 'keypress', 'input', 'textInput', 'DOMNodeInserted']
-    do (type) ->
-      editor.addEventListener type, ->
-        console.log "#{type}"
+  handle = debounce 200, -> parse editor
+  dom.on editor, 'copy paste cut drop focus blur keypress input textInput DOMNodeInserted', handle
 
 module?.exports = FEditor
 if window?

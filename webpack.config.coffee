@@ -5,7 +5,12 @@ module.exports =
   entry: './src/f-editor.coffee'
   devtool: 'source-map'
   devServer: open: yes
-  plugins: [new webpack.optimize.UglifyJsPlugin minimize: yes]
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin {
+      minimize: yes
+      compress: warnings: no
+    }
+  ]
   output:
     path: path.join __dirname, 'dist/'
     publicPath: 'dist/'
@@ -14,6 +19,7 @@ module.exports =
     extensions: ['', '.js', '.cjsx', '.coffee', '.styl']
   module:
     loaders: [
-      # { test: /\.cjsx$/, loaders: ['coffee', 'cjsx'] }
-      { test: /\.coffee$/, loader: 'coffee' }
+      { test: /\.styl$/i, loaders: ['style', 'css', 'stylus']}
+      { test: /\.cjsx$/, loaders: ['coffee', 'cjsx'] }
+      { test: /\.coffee$/i, loader: 'coffee' }
     ]

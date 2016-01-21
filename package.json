@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/sexytwilight/f-editor#readme",
   "devDependencies": {
+    "cjsx-loader": "^2.1.0",
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.10.0",
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.0",
+    "stylus-loader": "^1.5.0",
     "webpack": "^1.12.11"
   }
 }
