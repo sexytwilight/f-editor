@@ -10,10 +10,10 @@ dom = module.exports = (element, options, children...) ->
     else if attributeKey is 'style'
       dom.style element, attributeValue
     else if attributeKey is 'className'
-      dom.class element, attributeValue
+      dom.className element, attributeValue
     else
       if attributeValue is yes
-        dom.class element, attributeKey
+        dom.className element, attributeKey
       element[attributeKey] = attributeValue
   if children.length
     for child in children
@@ -27,12 +27,12 @@ dom = module.exports = (element, options, children...) ->
 Object.assign dom, {
   dom
   createElement: dom
-  'class': dom.className = (element, classNames) ->
+  className: (element, classNames) ->
     classes = new Set element.className.split /\w+/g
     unless Array.isArray classNames
       classNames = classNames.split /\w+/g
     for className in classNames
-      if /^-/.test className
+      if /^!/.test className
         classes.remove className.substring 1
       else if /^~/.test className
         className = className.substring 1
@@ -41,8 +41,6 @@ Object.assign dom, {
         else
           classes.add className
       else
-        if /^\+/.test className
-          className = className.substring 1
         classes.add className
     element.className = Array.from(classes).join ' '
   on: (element, types, handler) ->
